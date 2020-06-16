@@ -7,17 +7,25 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed = 5f;
     public Rigidbody2D rigidbody;
     public Animator animator;
+    Vector2 lookDirection = new Vector2(1, 0);
     Vector2 movement;
 
     // Update is called once per frame
     void Update()
     {
-       movement.x = Input.GetAxisRaw("Horizontal");
-       movement.y = Input.GetAxisRaw("Vertical");
+       float horizontal = Input.GetAxisRaw("Horizontal");
+       float vertical = Input.GetAxisRaw("Vertical");
+       movement = new Vector2(horizontal, vertical);
 
-       animator.SetFloat("Horizontal", movement.x);
-       animator.SetFloat("Vertical", movement.y);
-       animator.SetFloat("Speed", movement.sqrMagnitude);
+        if(!Mathf.Approximately(movement.x, 0.0f)|| !Mathf.Approximately(0.0f, movement.y))
+        {
+            lookDirection.Set(movement.x, movement.y);
+            lookDirection.Normalize();
+        }
+
+       animator.SetFloat("Horizontal", lookDirection.x);
+       animator.SetFloat("Vertical", lookDirection.y);
+       animator.SetFloat("Speed", movement.magnitude);
     }
 
     void FixedUpdate()
