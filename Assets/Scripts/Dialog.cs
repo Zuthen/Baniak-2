@@ -10,8 +10,6 @@ public class Dialog : MonoBehaviour
     public TextMeshProUGUI textDisplay;
     public Image avatarDisplay;
 
-
-    //public string[] sentences;
     public Speaker[] speakers;
     private int index;
     public float typingSpeed;
